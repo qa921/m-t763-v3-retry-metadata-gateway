@@ -1,2 +1,3 @@
-# m-t763-v3-retry-metadata-gateway
-M-T763-V3 synthetic source-state fixture: HTTP/stdio retry metadata, recovery and lifecycle discrepancies. Contains inputs only; no completed remediation.
+# Retry Metadata Gateway (M-T763-V3)
+
+Synthetic source-state fixture for reconciling HTTP and stdio tool invocation recovery. The open PR is intentionally incomplete. Issues labelled `observation` are 20 review points, not resolved findings.
