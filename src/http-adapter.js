@@ -1,6 +1,7 @@
 export async function invokeHttp(client, request) {
-  // Current baseline sends the gateway key as an advisory header.
+  // WIP: uses a different field than the durable identity and loses metadata on reconnect.
+  const retryToken = request.retry?.token || request.invocationKey;
   return client.post('/tools/' + request.tool, request.args, {
-    headers: { 'Idempotency-Key': request.invocationKey }
+    headers: { 'X-Retry-Token': retryToken, 'Idempotency-Key': request.invocationKey }
   });
 }
