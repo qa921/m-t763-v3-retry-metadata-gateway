@@ -1,0 +1,22 @@
+[
+{"id":"O01","path":"http","tool":"search","connection":"conn-a","args":{"q":"alpha","page":1},"stored":"completed","wire":"Idempotency-Key","discrepancy":"result omitted after upload"},
+{"id":"O02","path":"stdio","tool":"search","connection":"conn-a","args":{"page":1,"q":"alpha"},"stored":"completed","wire":"_meta.retry_token","discrepancy":"key differs from HTTP"},
+{"id":"O03","path":"http","tool":"write","connection":"conn-b","args":{"doc":"d1","text":"hello"},"stored":"sent","wire":"X-Retry-Token","discrepancy":"reconnect resends uncertain operation"},
+{"id":"O04","path":"stdio","tool":"write","connection":"conn-b","args":{"text":"hello","doc":"d1"},"stored":"sent","wire":"missing after reconnect","discrepancy":"fence bypass"},
+{"id":"O05","path":"http","tool":"email","connection":"conn-c","args":{"to":"a@example.test","body":"x"},"stored":"completed","wire":"Idempotency-Key","discrepancy":"canonical key unproven"},
+{"id":"O06","path":"stdio","tool":"email","connection":"conn-c","args":{"body":"x","to":"a@example.test"},"stored":"completed","wire":"_meta.retry_token","discrepancy":"metadata naming split"},
+{"id":"O07","path":"http","tool":"search","connection":"conn-d","args":{"q":"beta"},"stored":"new","wire":"none","discrepancy":"audit attempted missing"},
+{"id":"O08","path":"stdio","tool":"search","connection":"conn-d","args":{"q":"beta"},"stored":"new","wire":"none","discrepancy":"notification duplicate"},
+{"id":"O09","path":"http","tool":"write","connection":"conn-e","args":{"doc":"d2","text":"v1"},"stored":"sent","wire":"Idempotency-Key","discrepancy":"downstream support unknown"},
+{"id":"O10","path":"stdio","tool":"write","connection":"conn-e","args":{"text":"v1","doc":"d2"},"stored":"sent","wire":"_meta.retry_token","discrepancy":"serialized retry omitted"},
+{"id":"O11","path":"http","tool":"email","connection":"conn-f","args":{"to":"b@example.test","body":"y"},"stored":"completed","wire":"X-Retry-Token","discrepancy":"header drift"},
+{"id":"O12","path":"stdio","tool":"email","connection":"conn-f","args":{"body":"y","to":"b@example.test"},"stored":"completed","wire":"_meta.retryKey","discrepancy":"legacy field retained"},
+{"id":"O13","path":"http","tool":"search","connection":"conn-g","args":{"q":"gamma","limit":5},"stored":"sent","wire":"Idempotency-Key","discrepancy":"reply listener leaks"},
+{"id":"O14","path":"stdio","tool":"search","connection":"conn-g","args":{"limit":5,"q":"gamma"},"stored":"sent","wire":"missing","discrepancy":"shutdown races close"},
+{"id":"O15","path":"http","tool":"write","connection":"conn-h","args":{"doc":"d3","text":"z"},"stored":"completed","wire":"Idempotency-Key","discrepancy":"audit completion absent"},
+{"id":"O16","path":"stdio","tool":"write","connection":"conn-h","args":{"text":"z","doc":"d3"},"stored":"completed","wire":"_meta.retry_token","discrepancy":"result replay cross-link absent"},
+{"id":"O17","path":"http","tool":"email","connection":"conn-i","args":{"to":"c@example.test","body":"n"},"stored":"new","wire":"none","discrepancy":"schema accepts opaque retry"},
+{"id":"O18","path":"stdio","tool":"email","connection":"conn-i","args":{"body":"n","to":"c@example.test"},"stored":"new","wire":"none","discrepancy":"schema drops unknown metadata"},
+{"id":"O19","path":"http","tool":"search","connection":"conn-j","args":{"q":"delta"},"stored":"sent","wire":"Idempotency-Key","discrepancy":"transport capability unrecorded"},
+{"id":"O20","path":"stdio","tool":"search","connection":"conn-j","args":{"q":"delta"},"stored":"sent","wire":"_meta.retry_token","discrepancy":"no adapter capability signal"}
+]
