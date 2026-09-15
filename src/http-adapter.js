@@ -1,7 +1,9 @@
 export async function invokeHttp(client, request) {
-  // WIP: uses a different field than the durable identity and loses metadata on reconnect.
-  const retryToken = request.retry?.token || request.invocationKey;
+  // Aligned: both transports derive the retry identity from request.invocationKey.
+  // HTTP carries it as the baseline Idempotency-Key header (the X-Retry-Token drift
+  // is removed). Advisory only: this does NOT enforce exactly-once delivery or
+  // downstream idempotency; downstream support is not guaranteed (issues #11, #20).
   return client.post('/tools/' + request.tool, request.args, {
-    headers: { 'X-Retry-Token': retryToken, 'Idempotency-Key': request.invocationKey }
+    headers: { 'Idempotency-Key': request.invocationKey }
   });
 }
